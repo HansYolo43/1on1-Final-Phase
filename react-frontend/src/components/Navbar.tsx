@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
           <img src={logo} alt="1on1Calendar" className="h-10 mr-3" />
           <span className="text-xl font-semibold">1on1Calendar</span>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center justify-start ">
           <button className="text-blue-400 mr-4" onClick={handleToday}>Today</button>
           <button className="mr-2" onClick={handlePrevDay}>‹</button>
           <button className="mr-4" onClick={handleNextDay}>›</button>
