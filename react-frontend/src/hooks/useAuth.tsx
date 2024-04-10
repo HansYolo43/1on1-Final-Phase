@@ -36,7 +36,9 @@ export const useAuth = (): AuthState => {
     }
 
     setAccessToken(data.access);
-    localStorage.setItem("token", data.access); // Store token
+    localStorage.setItem("token", data.access);// Store token
+    //store refresh token
+    localStorage.setItem("refresh", data.refresh);
     return data; // Return the data to potentially use it in the component
   };
 
@@ -69,7 +71,9 @@ export const useAuth = (): AuthState => {
 
     if (data.access) {
       setAccessToken(data.access);
-      localStorage.setItem("token", data.access); // Store token
+      localStorage.setItem("token", data.access);// Store token
+      localStorage.setItem("refresh", data.refresh);
+      //store refresh token
     }
 
     return data; // Return the data to use in the component
