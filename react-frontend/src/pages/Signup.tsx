@@ -4,30 +4,27 @@ import toast from "react-hot-toast";
 import { useAuth } from "../hooks/useAuth"; 
 
 const SignUp: React.FC = () => {
-    const [name] = useState('');
-    const [email] = useState('');
-    const [password] = useState('');
+    const [name , setname] = useState('');
+    const [email , setEmail] = useState('');
+    const [password, setPassword] = useState('');
     // const [error, setErrorMessage] = useState('');
     const { signup } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        toast.promise(
-            signup(name, email, password , password), // Assuming this returns a promise
-            {
-                loading: 'Creating account...',
-                success: 'Account successfully created!',
-                error: 'Failed to create account. Please check your details.',
-            }
-        ).then(() => {
-            // Redirect or perform additional actions on success
-            navigate('/signin');
-        }).catch(error => {
-            // Error handling if needed
-            console.error('Sign up error:', error);
-        });
-    };
+
+        // toast.loading('Creating your account...');
+        
+        try {
+            await signup(name, email, password, password);
+            toast.success('Account created successfully!');
+            navigate('/');
+        } catch (error) {
+            toast.error("An unexpected error occurred. Please try again later.");
+        }
+    }
+
 
 
     return (
@@ -55,17 +52,17 @@ const SignUp: React.FC = () => {
                     <form id="form" onSubmit={handleSubmit}>
                         <div>
                             <label  className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Name</label>
-                            <input type="text" name="name" id="name" placeholder="Your Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
+                                    <input type="text" name="name" id="name" required value={name} placeholder="Your Name" onChange={(e) => setname(e.target.value)} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                         </div>
 
                         <div className="mt-6">
                             <label  className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
-                            <input type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
+                            <input type="email" name="email" id="email" required value={email} placeholder="example@example.com" onChange={(e) => setEmail(e.target.value)} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"/>
                         </div>
 
                         <div className="mt-6">
                             <label  className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
+                            <input type="password" name="password" id="password" required value={password} placeholder="Your Password" onChange={(e) => setPassword(e.target.value)} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"  />
                         </div>
 
                         <div className="mt-6">

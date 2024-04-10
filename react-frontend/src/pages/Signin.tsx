@@ -14,10 +14,10 @@ const SignIn: React.FC = () => {
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         toast.promise(
-            login(email, password), // Assuming this returns a promise
+            login(email, password), 
             {
                 loading: 'Signing in...',
-                success: 'Successfully signed in!', // Or use a function for dynamic message (data) => `Welcome back, ${data.user}!`
+                success: 'Successfully signed in!', 
                 error: 'Failed to sign in. Please check your credentials.',
             }
         ).then(() => {
@@ -53,7 +53,7 @@ const SignIn: React.FC = () => {
               <form onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
-                  <input type="email" name="email" id="email" placeholder="example@example.com"
+                  <input type="username" name="email" id="email"  placeholder="username"
                     className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     required value={email} onChange={(e) => setEmail(e.target.value)}
                   />
