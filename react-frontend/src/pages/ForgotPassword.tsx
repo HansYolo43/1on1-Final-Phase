@@ -1,40 +1,37 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword: React.FC = () => {
-  const [email] = useState("");
+    const [email, setEmail] = useState("");
+    const { forgot_pass } = useAuth();
+    const navigate = useNavigate();
 
   // const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    try {
-      // Replace with your actual password reset API endpoint
-      const response = await fetch(
-        "http://127.0.0.78000/user/forgot-password/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to reset password. Please try again.");
+    toast.promise(
+      forgot_pass(email),
+      {
+        loading: 'Sending password reset email...',
+        success: 'If an account with that email exists, we have sent a password reset email.',
+        error: (err) => {
+          // Adjust the error message based on your API or generic error handling
+            //   return err.message || "An unexpected error occurred. Please try again later.";
+            return "Api Not Implemented";
+        },
       }
-
-      toast.success(
-        "If an account with that email exists, we have sent a password reset email."
-      );
-      //   navigate('/signin'); // Uncomment if you want to redirect
-    } catch (error) {
-      if (error instanceof Error) toast.error(error.message);
-      else toast.error("An unexpected error occurred. Please try again later.");
-    }
+    ).then(() => {
+      // Optional: Redirect the user after the operation
+      navigate('/signin');
+    }).catch((error) => {
+      // Additional error handling if needed
+      console.error('Forgot password error:', error);
+    });
   };
 
   return (
@@ -84,7 +81,8 @@ const ForgotPassword: React.FC = () => {
                     name="email"
                     id="email"
                     placeholder="example@example.com"
-                    value={email}
+                                      value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                     className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     required
                   />

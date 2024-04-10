@@ -9,6 +9,7 @@ interface AuthState {
     password: string,
     confirmPassword: string
   ) => Promise<void>;
+  forgot_pass: (email: string) => Promise<void>;
   error: string | null;
 }
 
@@ -73,6 +74,31 @@ export const useAuth = (): AuthState => {
 
     return data; // Return the data to use in the component
   };
+const forgot_pass = async (email: string) => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/user/forgot-password/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to reset password. Please try again.');
+      }
+  
+      // Assuming the API returns a success message or status, but you can adjust based on your API
+      return await response.json();
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error; // Rethrow the error to be handled by the caller
+      } else {
+        throw new Error('An unexpected error occurred. Please try again later.');
+      }
+    }
+  };
 
-  return { accessToken, login, signup, error };
+  return { accessToken, login, signup, forgot_pass, error  };
 };
