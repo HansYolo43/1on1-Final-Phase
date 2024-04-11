@@ -8,6 +8,7 @@ import ContactCard from '../components/ContactCard'; // You'll need to create th
 import ContactFormModal from '../components/ContactFormModal'; // This too
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import ScheduleMeetingModal from '../components/ScheduleMeetingModal';
 
 
 const Contactors = () => {
@@ -63,46 +64,46 @@ const Contactors = () => {
     fetchContacts();
   }, [localStorage.getItem("token")]);
 
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/user/contacts/?search=${searchTerm}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setContacts(response.data);
-    } catch (error) {
-      try {
-        const refreshment = await fetch("http://127.0.0.1:8000/user/token/refresh/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ refresh }),
-        });
+  // const handleSearch = async () => {
+  //   try {
+  //     const response = await axios.get(`http://127.0.0.1:8000/user/contacts/?search=${searchTerm}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     });
+  //     setContacts(response.data);
+  //   } catch (error) {
+  //     try {
+  //       const refreshment = await fetch("http://127.0.0.1:8000/user/token/refresh/", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ refresh }),
+  //       });
     
-        const data = await refreshment.json();
+  //       const data = await refreshment.json();
     
-        if (!refreshment.ok) {
-          throw new Error(
-            data.message ||
-              "Failed to refresh."
-          );
-        }
+  //       if (!refreshment.ok) {
+  //         throw new Error(
+  //           data.message ||
+  //             "Failed to refresh."
+  //         );
+  //       }
 
-        localStorage.setItem("token", data.access); // Store token
+  //       localStorage.setItem("token", data.access); // Store token
 
-      const response = await axios.get(`http://127.0.0.1:8000/user/contacts/?search=${searchTerm}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setContacts(response.data);
-    } catch (error) {
-      setError('Failed to search contacts');
-    }
-    }
-  };
+  //     const response = await axios.get(`http://127.0.0.1:8000/user/contacts/?search=${searchTerm}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     });
+  //     setContacts(response.data);
+  //   } catch (error) {
+  //     setError('Failed to search contacts');
+  //   }
+  //   }
+  // };
 
   const addContact = async (contactData: addContact) => {
     try {
@@ -275,12 +276,16 @@ const Contactors = () => {
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => setIsAddModalOpen(false);
 
-  // ... existing functions ...
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <>
       <Navbar />
-      <Sidebar />
+      <Sidebar onScheduleMeetingClick={openModal} />
+      <ScheduleMeetingModal isOpen={isModalOpen} onClose={closeModal} />
       <div className="pt-20 pl-64"> {/* Adjust this if Navbar/Sidebar dimensions change */}
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-semibold mb-6">Contactors</h2>

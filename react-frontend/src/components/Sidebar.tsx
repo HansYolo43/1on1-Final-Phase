@@ -1,7 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  onScheduleMeetingClick: () => void; // Define the type of your prop
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onScheduleMeetingClick }) => {
   //Sidebar component
 
   return (
@@ -13,6 +17,7 @@ const Sidebar: React.FC = () => {
       <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <div className="flex justify-between items-center py-2 px-7">
           <button
+            onClick={onScheduleMeetingClick}
             type="button"
             id="ScheduleBtn"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
