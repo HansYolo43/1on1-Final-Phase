@@ -282,7 +282,7 @@ const Contactors = () => {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <>
+    <div className='bg-gray-900 h-screen"'>
       <Navbar />
       <Sidebar onScheduleMeetingClick={openModal} />
       <ScheduleMeetingModal isOpen={isModalOpen} onClose={closeModal} />
@@ -313,7 +313,7 @@ const Contactors = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

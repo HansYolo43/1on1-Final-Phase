@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import AvailiblityModal from "./AvailiblityModal";
+import CalendarForm from "./CalendarForm";
+import useCalendar from "../hooks/useCalendar";
 
 interface SidebarProps {
   onScheduleMeetingClick: () => void;
@@ -14,6 +16,13 @@ const Sidebar: React.FC<SidebarProps> = ({ onScheduleMeetingClick }) => {
 
   const closeModal = () => setIsOpen(false);
   //Sidebar component
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+
+  const { createCalendar, fetchCalendars } = useCalendar();
+
+  const openCalendarModal = () => setIsCalendarModalOpen(true);
+  const closeCalendarModal = () => setIsCalendarModalOpen(false);
+
 
   return (
     <aside
@@ -24,13 +33,19 @@ const Sidebar: React.FC<SidebarProps> = ({ onScheduleMeetingClick }) => {
       <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <div className="flex justify-between items-center py-2 px-7">
           <button
-            onClick={onScheduleMeetingClick}
+            onClick={openCalendarModal}
             type="button"
             id="ScheduleBtn"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 "
           >
             <span>Schedule Meeting</span>
           </button>
+          {isCalendarModalOpen && (
+            <CalendarForm
+              closeModal={closeCalendarModal}
+              createCalendar={createCalendar}
+            />
+          )}
         </div>
         <div className="flex justify-between items-center py-2 px-7">
           <button

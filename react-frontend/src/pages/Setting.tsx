@@ -114,7 +114,7 @@ const Setting: React.FC = () => {
 
   return (
    
-    <div>
+    <div className="bg-gray-900  ">
       <Sidebar onScheduleMeetingClick={openModal} />
       <ScheduleMeetingModal isOpen={isModalOpen} onClose={closeModal} />
 
@@ -235,7 +235,7 @@ const Setting: React.FC = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
     
   );
 };

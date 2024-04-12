@@ -44,3 +44,11 @@ export interface AvailableTime {
     end_time: string;
     preference_level: number;
 }
+
+export interface Invite { 
+  id : number;
+  calendar: number;
+  contact: number;
+  has_responded: boolean;
+  response: boolean | null;
+}

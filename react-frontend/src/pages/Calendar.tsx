@@ -70,6 +70,9 @@ const Calendars: React.FC = () => {
     fetchCalendars();
   }, [localStorage.getItem("token")]);
 
+
+  useEffect(() => { }, [calendars]);
+
   const deleteCalendar = async (calendarId: number) => {
     try {
       await axios.delete(`http://127.0.0.1:8000/calendars/calendars/${calendarId}/`, {
@@ -123,7 +126,7 @@ const Calendars: React.FC = () => {
   };
 
     return (
-      <>
+      <div className='bg-gray-900 h-screen'>
       <Navbar />
       <Sidebar onScheduleMeetingClick={openModal} />
       <ScheduleMeetingModal isOpen={isModalOpen} onClose={closeModal} />
@@ -144,7 +147,7 @@ const Calendars: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
