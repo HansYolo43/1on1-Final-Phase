@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import logo from "../images/logo.svg";
 import userProfileImage from "../images/profile.jpg";
 import { format } from "date-fns";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   //States for the current date
   const [currentDate, setCurrentDate] = useState(new Date());
+  const navigate = useNavigate();
 
   // Handler to move to the next day
   const handleNextDay = () => {
@@ -30,6 +32,10 @@ const Navbar: React.FC = () => {
     setCurrentDate(new Date());
   };
 
+  const handleSettiings = () => {
+    navigate("/settings");
+  }
+
   return (
     <nav className="fixed top-0 z-50 w-full flex items-center justify-between px-6 py-4 bg-gray-800 text-white">
       <div className="flex items-center">
@@ -52,7 +58,7 @@ const Navbar: React.FC = () => {
           placeholder="Search"
           className="px-4 py-2 rounded-md bg-gray-700 mr-4"
         />
-        <button>
+        <button onClick={handleSettiings}>
           {/* Replace "UserProfileImagePath" with the actual path */}
           <img
             src={userProfileImage}
