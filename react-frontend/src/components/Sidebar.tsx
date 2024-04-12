@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import AvailiblityModal from "./AvailiblityModal";
 
 interface SidebarProps {
-  onScheduleMeetingClick: () => void; // Define the type of your prop
+  onScheduleMeetingClick: () => void;
+  // Define the type of your prop
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onScheduleMeetingClick }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClick = () => setIsOpen(true);
+
+  const closeModal = () => setIsOpen(false);
   //Sidebar component
 
   return (
@@ -20,10 +27,23 @@ const Sidebar: React.FC<SidebarProps> = ({ onScheduleMeetingClick }) => {
             onClick={onScheduleMeetingClick}
             type="button"
             id="ScheduleBtn"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 "
           >
             <span>Schedule Meeting</span>
           </button>
+        </div>
+        <div className="flex justify-between items-center py-2 px-7">
+          <button
+            onClick={onClick}
+            type="button"
+            id="AvailibitlyBtn"
+            className="bg-green-500 hover:bg-green-700 text-white focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2  ">
+              
+            <span>Set Your Availabilty</span>
+          </button>
+          {isOpen && <AvailiblityModal
+            closeModal={closeModal}
+          />}
         </div>
 
         <ul className="space-y-2 font-medium">

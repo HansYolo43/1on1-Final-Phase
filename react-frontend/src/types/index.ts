@@ -37,3 +37,10 @@ export interface Calendard {
     end_date: string;
     // Add other fields as necessary
 }
+export interface AvailableTime {
+  id: number;
+  user_id: number;
+    start_time: string;
+    end_time: string;
+    preference_level: number;
+}
