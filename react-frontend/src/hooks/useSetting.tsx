@@ -1,6 +1,8 @@
 // useSettings.tsx
-import { useState, useContext } from 'react';
+import { useState, useContext ,  useEffect  } from 'react';
 import axios from 'axios';
+import { useToken } from './useToken';
+import exp from 'constants';
 // Adjust path as necessary
 
 interface UserPayload {
@@ -18,11 +20,21 @@ interface SettingsState {
 }
 
 const useSettings = () => {
-  const [user, setUser] = useState(null); // Adjust this to the shape of your user data
+  const [user, setUser] = useState(null); 
   const [error, setError] = useState<string | null>(null);
-  const  accessToken  = localStorage.getItem("token") // This assumes you store your access token in an AuthContext
+    const accessToken = localStorage.getItem("token") 
+    
+    //refresh token
+    const { refreshToken } = useToken();
 
-const getUserInfo = async () => {
+    // Refresh the access token if it's expired
+
+    
+
+    const getUserInfo = async () => {
+        //refresh token
+        refreshToken();
+
     try {
         const response = await axios.get('http://127.0.0.1:8000/user/user/', {
             headers: {
@@ -37,7 +49,10 @@ const getUserInfo = async () => {
     }
 };
 
-const updateUserInfo = async (payload: UserPayload) => {
+    const updateUserInfo = async (payload: UserPayload) => {
+    
+        refreshToken();
+
     try {
         const response = await axios.put('http://127.0.0.1:8000/user/user/', payload, {
             headers: {
@@ -57,5 +72,7 @@ const updateUserInfo = async (payload: UserPayload) => {
     error,
   };
 };
+
+
 
 export default useSettings;

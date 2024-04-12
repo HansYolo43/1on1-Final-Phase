@@ -27,10 +27,16 @@ export const useToken = () => {
     
     const refreshTokenFunc = async () => {
         try {
-            const response = await axios.post(`${API_URL}/user/token/refresh/`, {
-                refresh: refreshToken,
+            const response = await fetch(`${API_URL}/user/token/refresh/`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ refresh: refreshToken }),
             });
-            const { access, refresh } = response.data;
+            const data = await response.json();
+          
+            const { access, refresh } = data;
             localStorage.setItem('accessToken', access);
             localStorage.setItem('refreshToken', refresh);
             setAccessToken(access);
