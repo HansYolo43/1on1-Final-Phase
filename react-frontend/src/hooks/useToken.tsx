@@ -4,8 +4,8 @@ import axios from 'axios';
 const API_URL = 'http://127.0.0.1:8000';
 
 export const useToken = () => {
-    const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem('accessToken'));
-    const [refreshToken, setRefreshToken] = useState<string | null>(localStorage.getItem('refreshToken'));
+    const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem('token'));
+    const [refreshToken, setRefreshToken] = useState<string | null>(localStorage.getItem('refresh'));
 
 
     const obtainToken = async (username: string, password: string) => {
@@ -15,8 +15,8 @@ export const useToken = () => {
             password,
           });
           const { access, refresh } = response.data;
-          localStorage.setItem('accessToken', access);
-          localStorage.setItem('refreshToken', refresh);
+          localStorage.setItem('tokem', access);
+          localStorage.setItem('refresh', refresh);
           setAccessToken(access);
           setRefreshToken(refresh);
         } catch (error) {
@@ -37,8 +37,8 @@ export const useToken = () => {
             const data = await response.json();
           
             const { access, refresh } = data;
-            localStorage.setItem('accessToken', access);
-            localStorage.setItem('refreshToken', refresh);
+            localStorage.setItem('token', access);
+            localStorage.setItem('refresh', refresh);
             setAccessToken(access);
             setRefreshToken(refresh);
         } catch (error) {

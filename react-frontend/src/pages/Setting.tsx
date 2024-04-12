@@ -1,6 +1,5 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import Sidebar from "../components/Sidebar";
-import { set } from "date-fns";
 import Navbar from "../components/Navbar";
 import userProfileImage from "../images/profile.jpg";
 import ScheduleMeetingModal from '../components/ScheduleMeetingModal';
@@ -127,7 +126,6 @@ const Setting: React.FC = () => {
             <div className="relative w-32 h-32 rounded-full overflow-hidden border-2 border-gray-300 mb-4">
               <img
                 src={userProfileImage}
-                alt="Profile Picture"
                 className="absolute w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 cursor-pointer">
@@ -142,8 +140,8 @@ const Setting: React.FC = () => {
                 />
               </div>
             </div>
-            <span className="text-xl font-medium mt-2"> {user.username}</span>
-            <span className="text-xl font-medium mt-2"> {user.email}</span>{/* Ensure user name matches state or props */}
+            <span className="text-xl font-medium mt-2"> {user.username || 'Default Username'}</span>
+            <span className="text-xl font-medium mt-2"> {user.email || 'Default Email'}</span>{/* Ensure user name matches state or props */}
           </div>
 
           <div className="mb-4">

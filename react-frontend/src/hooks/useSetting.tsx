@@ -33,7 +33,7 @@ const useSettings = () => {
 
     const getUserInfo = async () => {
         //refresh token
-        refreshToken();
+        // refreshToken();
 
     try {
         const response = await axios.get('http://127.0.0.1:8000/user/user/', {
@@ -51,7 +51,7 @@ const useSettings = () => {
 
     const updateUserInfo = async (payload: UserPayload) => {
     
-        refreshToken();
+        // refreshToken();
 
     try {
         const response = await axios.put('http://127.0.0.1:8000/user/user/', payload, {
