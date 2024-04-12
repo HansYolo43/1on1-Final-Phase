@@ -12,3 +12,20 @@ export interface addContact {
     // Add other fields as necessary
   }
   
+export interface Event {
+    id: number;
+    name: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+    // Add other fields as necessary
+}
+  
+export interface Calendard {
+    owner_id: number;
+    name: string;
+    description: string;
+    start_date: string;
+    end_date: string;
+    // Add other fields as necessary
+}

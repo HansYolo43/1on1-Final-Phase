@@ -82,6 +82,7 @@ const useCalendar = () => {
       });
       // setCalendars(response.data);
       // return handleApiResponse(response);
+      return response.data;
     } catch (error) {
       // return handleApiError(error);
     }
