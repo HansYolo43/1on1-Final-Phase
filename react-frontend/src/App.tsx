@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 import Dashboard from './pages/Dashboard';
-import Calendar from './pages/Calendar';
+import Calendars from './pages/Calendar';
 import Contacts from './pages/Contacts';
 import Events from './pages/Events';
 import Settings from './pages/Setting';
@@ -28,7 +28,7 @@ const App: React.FC = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/calendar" element={<Calendars />} />
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/events" element={<Events />} />
             <Route path="/settings" element={<Settings />} />

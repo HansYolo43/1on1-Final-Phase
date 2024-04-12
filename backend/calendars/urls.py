@@ -11,7 +11,7 @@ urlpatterns = [
     path('<int:calendar_id>/invite/', InviteCalendar.as_view(), name='invite-list-create'), # 
 
     path('calendars/', CalendarView.as_view(), name='calendar-list-create'), # For listing and creating
-    path('calendars/<int:id>/', CalendarDetailView.as_view(), name='calendar-detail'), # For detail
+    path('calendars/<int:pk>/', CalendarDetailView.as_view(), name='calendar-detail'), # For detail
 
     path('availability/', AvailabilityView.as_view(), name='availability-list-create'),  # For listing and creating
     path('availability/<int:pk>/', AvailabilityUpdateView.as_view(), name='availability-detail-update'),  # For detail and update

@@ -46,7 +46,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ contact, onSave, on
     <div className="modal bg-gray-600 bg-opacity-50 fixed inset-0">
       <div className="modal-content relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
         <form onSubmit={handleSubmit} className="space-y-4">
-          <label htmlFor="name">Name:</label>
+          {/* <label htmlFor="name">Name:</label> */}
           <input
             className="px-4 py-2 rounded-md text-black"
             type="text"
@@ -58,7 +58,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ contact, onSave, on
             required
           />
 
-          <label htmlFor="email">Email:</label>
+          {/* <label htmlFor="email">Email:</label> */}
           <input
             className="px-4 py-2 rounded-md text-black"
             type="email"

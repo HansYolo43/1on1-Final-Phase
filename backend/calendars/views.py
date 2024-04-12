@@ -12,6 +12,8 @@ from rest_framework.views import APIView
 from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.generics import GenericAPIView
+from django.http import Http404
+
 
 class CalendarView(generics.ListCreateAPIView):
     serializer_class = CalendarSerializer
@@ -24,10 +26,24 @@ class CalendarView(generics.ListCreateAPIView):
         return Calendar.objects.filter(owner=self.request.user)
     
 class CalendarDetailView(generics.RetrieveAPIView):
-    queryset = Calendar.objects.all()
-    serializer_class = CalendarSerializer
+
     permission_classes = [IsAuthenticated]
-    lookup_field = 'id'
+
+    def get_object(self, pk, user):
+        try:
+            return Calendar.objects.get(pk=pk, owner=user)
+        except Calendar.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        calendar = self.get_object(pk, request.user)
+        serializer = CalendarSerializer(calendar)
+        return Response(serializer.data)
+
+    def delete(self, request, pk):
+        calendar = self.get_object(pk, request.user)
+        calendar.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class InviteCalendar(APIView):
     permission_classes = [IsAuthenticated]

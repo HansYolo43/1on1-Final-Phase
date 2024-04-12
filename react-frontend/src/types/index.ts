@@ -12,6 +12,14 @@ export interface addContact {
     // Add other fields as necessary
   }
   
+export interface Calendar {
+    id: number;
+    name: string;
+    description: string;
+    start_date: string;
+    end_date: string;
+  }
+
 export interface Event {
     id: number;
     name: string;
