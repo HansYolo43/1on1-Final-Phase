@@ -12,6 +12,7 @@ const Calendar: React.FC = () => {
     return (
       <div>
       <Sidebar onScheduleMeetingClick={openModal} />
+      <ScheduleMeetingModal isOpen={isModalOpen} onClose={closeModal} />
   
       <Navbar/>
         <h1>Dashboard</h1>

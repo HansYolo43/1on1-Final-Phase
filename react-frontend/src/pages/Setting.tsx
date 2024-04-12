@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import { set } from "date-fns";
 import Navbar from "../components/Navbar";
 import userProfileImage from "../images/profile.jpg";
+import ScheduleMeetingModal from '../components/ScheduleMeetingModal';
 
 
 const Setting: React.FC = () => {
@@ -23,6 +24,8 @@ const Setting: React.FC = () => {
    
     <div>
       <Sidebar onScheduleMeetingClick={openModal} />
+      <ScheduleMeetingModal isOpen={isModalOpen} onClose={closeModal} />
+
       <Navbar/>
       <div className="pt-20 pl-64">
         <div className="container mx-auto px-4">
