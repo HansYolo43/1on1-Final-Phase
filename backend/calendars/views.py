@@ -73,7 +73,10 @@ class InviteCalendar(APIView):
         from_email = settings.EMAIL_HOST_USER
         recipient_list = [contact.email]
 
-        send_mail(subject, message, from_email, recipient_list)
+        try:
+            send_mail(subject, message, from_email, recipient_list)
+        except Exception as e:
+            print(f"Failed to send email: {e}")
 
     def get_invitation_link(self, calendar, contact):
         return f"https://yourfrontenddomain.com/respond-to-invitation/?calendar_id={calendar.id}&contact_id={contact.id}"
